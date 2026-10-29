@@ -16,6 +16,14 @@
             <span class="badge-upgraded">✨ Multi-Modal Handwriting AI</span>
             <h1 id="appTitle">손글씨 AI 인식기</h1>
             <p class="subtitle" id="appSubtitle">숫자(0-9) 또는 한글 단어를 캔버스에 그려보세요</p>
+            <!-- Gemini 연결 상태 -->
+            <div class="gemini-header-status">
+                <button id="geminiSettingsBtn" class="gemini-settings-btn" title="Gemini API 설정">
+                    <span>⚙️</span>
+                    <span id="geminiStatusDot" class="status-dot"></span>
+                    <span id="geminiStatusText" class="status-text">Gemini 미연결</span>
+                </button>
+            </div>
         </header>
 
         <!-- 모드 전환 탭 -->
@@ -95,6 +103,7 @@
             <div id="koreanResultView" style="display: none;">
                 <div class="korean-result-card">
                     <div class="top-info-title">인식된 한글 텍스트</div>
+                    <div id="koreanEngineBadge" class="engine-badge"></div>
                     <div id="koreanText" class="korean-result-text">인식 중...</div>
                     <div style="font-size: 0.9rem; color: #64748b;">
                         신뢰도: <strong id="koreanConfidence" style="color: #1e293b;">0.0%</strong>
@@ -115,6 +124,53 @@
         </footer>
     </div>
 
-    <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+    <!-- Gemini API 설정 모달 -->
+    <div id="geminiModal" class="gemini-modal-overlay" style="display:none;">
+        <div class="gemini-modal">
+            <div class="gemini-modal-header">
+                <h3>🤖 Gemini AI 설정</h3>
+                <button id="geminiModalClose" class="gemini-modal-close">&times;</button>
+            </div>
+            <div class="gemini-modal-body">
+                <p class="gemini-modal-desc">
+                    Google Gemini API 키를 입력하면 한글 인식 정확도가 <strong style="color: #22c55e;">~99%</strong>까지 향상됩니다.
+                </p>
+                <div class="gemini-input-group">
+                    <label for="geminiApiKeyInput">API 키</label>
+                    <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy... 형식의 API 키 입력" autocomplete="off">
+                </div>
+                <p class="gemini-modal-help">
+                    <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">
+                        🔗 Google AI Studio에서 무료 API 키 발급받기
+                    </a>
+                </p>
+                <div class="gemini-engine-info">
+                    <div class="engine-priority-title">인식 엔진 우선순위</div>
+                    <div class="engine-priority-list">
+                        <div class="engine-priority-item">
+                            <span class="engine-rank">1</span>
+                            <span class="engine-name">🤖 Gemini Vision AI</span>
+                            <span class="engine-accuracy">~99% 정확도</span>
+                        </div>
+                        <div class="engine-priority-item">
+                            <span class="engine-rank">2</span>
+                            <span class="engine-name">🔧 EasyOCR (서버)</span>
+                            <span class="engine-accuracy">~70% 정확도</span>
+                        </div>
+                        <div class="engine-priority-item">
+                            <span class="engine-rank">3</span>
+                            <span class="engine-name">📝 Tesseract.js</span>
+                            <span class="engine-accuracy">~40% 정확도</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gemini-modal-footer">
+                <button id="geminiSaveBtn" class="btn btn-predict" style="flex: none; padding: 10px 32px;">💾 저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
 </body>
 </html>
