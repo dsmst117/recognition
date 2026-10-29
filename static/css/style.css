@@ -448,3 +448,245 @@ footer {
         flex-wrap: wrap;
     }
 }
+
+/* ─── Gemini AI 설정 버튼 ─── */
+.gemini-header-status {
+    margin-top: 10px;
+}
+
+.gemini-settings-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #f1f5f9;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.2s ease;
+}
+
+.gemini-settings-btn:hover {
+    background: #e0e7ff;
+    border-color: #a5b4fc;
+    color: var(--primary);
+}
+
+.gemini-settings-btn.connected {
+    background: #ecfdf5;
+    border-color: #86efac;
+    color: #166534;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+    display: inline-block;
+}
+
+.status-text {
+    font-size: 0.78rem;
+}
+
+/* ─── Gemini 설정 모달 ─── */
+.gemini-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+}
+
+.gemini-modal {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 440px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: fadeIn 0.25s ease;
+}
+
+.gemini-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+}
+
+.gemini-modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.gemini-modal-close {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.gemini-modal-close:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+.gemini-modal-body {
+    padding: 20px 24px;
+}
+
+.gemini-modal-desc {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.gemini-input-group {
+    margin-bottom: 12px;
+}
+
+.gemini-input-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.gemini-input-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.gemini-input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.gemini-modal-help {
+    font-size: 0.82rem;
+    margin-bottom: 16px;
+}
+
+.gemini-modal-help a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.gemini-modal-help a:hover {
+    text-decoration: underline;
+}
+
+.gemini-engine-info {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.engine-priority-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.engine-priority-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.engine-priority-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.engine-rank {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.engine-name {
+    flex: 1;
+    color: #334155;
+    font-weight: 600;
+}
+
+.engine-accuracy {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #22c55e;
+}
+
+.gemini-modal-footer {
+    padding: 14px 24px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ─── 엔진 배지 (결과 카드) ─── */
+.engine-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.engine-badge.gemini {
+    background: linear-gradient(135deg, #e0e7ff, #f0e6ff);
+    color: #4f46e5;
+    border: 1px solid #a5b4fc;
+}
+
+.engine-badge.easyocr {
+    background: #ecfdf5;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.engine-badge.tesseract {
+    background: #fef9c3;
+    color: #a16207;
+    border: 1px solid #fde68a;
+}

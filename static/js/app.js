@@ -98,7 +98,7 @@ class DrawingApp {
             ? '이 이미지에 손으로 쓴 한글 텍스트를 정확히 읽어주세요. 받침이 있는 글자도 정확하게 인식해주세요. 인식된 텍스트만 출력하세요. 다른 설명은 하지 마세요.'
             : '이 이미지에 손으로 쓴 숫자를 읽어주세요. 0부터 9 사이의 숫자 하나입니다. 숫자만 출력하세요.';
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${this.geminiApiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${this.geminiApiKey}`;
 
         try {
             const response = await fetch(url, {
