@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 손글씨 인식기 (숫자 & 한글)</title>
+    <!-- TensorFlow.js 최신 라이브러리 (숫자 인식) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <!-- Tesseract.js (브라우저 직접 구동 한국어 OCR 엔진) -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge-upgraded">✨ Multi-Modal Handwriting AI</span>
+            <h1 id="appTitle">손글씨 AI 인식기</h1>
+            <p class="subtitle" id="appSubtitle">숫자(0-9) 또는 한글 단어를 캔버스에 그려보세요</p>
+        </header>
+
+        <!-- 모드 전환 탭 -->
+        <div class="tab-container">
+            <button id="tabDigit" class="tab-btn active">
+                <span>🔢</span> 숫자 모드 (0-9)
+            </button>
+            <button id="tabKorean" class="tab-btn">
+                <span>🇰🇷</span> 한글 모드 (단어/문장)
+            </button>
+        </div>
+
+        <!-- 모델 로딩 표시창 -->
+        <div id="loading" class="loading" style="display: none;">
+            <span id="loadingText">인공지능 모델을 불러오는 중입니다...</span>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <div id="errorDetails" class="error-box" style="display: none;"></div>
+        </div>
+
+        <div class="workspace" id="app">
+            <div class="canvas-wrapper">
+                <div class="main-canvas-box">
+                    <canvas id="canvas" width="280" height="280"></canvas>
+                </div>
+
+                <!-- AI가 보는 시선 프리뷰 (숫자 모드용) -->
+                <div class="preview-box" id="previewContainer">
+                    <div class="preview-title">AI가 보는 시선</div>
+                    <canvas id="previewCanvas" width="28" height="28"></canvas>
+                    <div class="preview-desc">MNIST 규격 정규화<br>(20×20 + 무게중심)</div>
+                </div>
+            </div>
+
+            <!-- 캔버스 도구 바 -->
+            <div class="toolbar">
+                <div class="tool-item">
+                    <label for="brushSize">선 굵기:</label>
+                    <input type="range" id="brushSize" min="8" max="32" value="22">
+                    <span id="brushSizeVal">22px</span>
+                </div>
+                <div class="tool-item">
+                    <input type="checkbox" id="autoPredict" checked>
+                    <label for="autoPredict" style="cursor: pointer;">그린 후 자동 예측</label>
+                </div>
+            </div>
+
+            <!-- 조작 버튼 -->
+            <div class="controls">
+                <button id="undoBtn" class="btn btn-undo" title="마지막 획 취소">↩ 실행취소</button>
+                <button id="clearBtn" class="btn btn-clear">🧹 지우기</button>
+                <button id="predictBtn" class="btn btn-predict">🔍 예측하기</button>
+            </div>
+        </div>
+
+        <!-- 결과 표시 영역 -->
+        <div id="results" class="results-container hidden">
+            <!-- 1. 숫자 모드 결과 화면 -->
+            <div id="digitResultView">
+                <div class="top-prediction-card">
+                    <div class="top-prediction-left">
+                        <div id="topDigit" class="top-digit-circle">?</div>
+                        <div>
+                            <div class="top-info-title">가장 유력한 숫자</div>
+                            <div id="topConfidence" class="top-info-confidence">0.0%</div>
+                        </div>
+                    </div>
+                    <div id="confidenceTag" class="confidence-tag">확실함</div>
+                </div>
+
+                <div class="ranking-title">상위 예측 순위</div>
+                <div id="predictions"></div>
+            </div>
+
+            <!-- 2. 한글 모드 결과 화면 -->
+            <div id="koreanResultView" style="display: none;">
+                <div class="korean-result-card">
+                    <div class="top-info-title">인식된 한글 텍스트</div>
+                    <div id="koreanText" class="korean-result-text">인식 중...</div>
+                    <div style="font-size: 0.9rem; color: #64748b;">
+                        신뢰도: <strong id="koreanConfidence" style="color: #1e293b;">0.0%</strong>
+                    </div>
+                    <div id="koreanWordList" class="korean-badge-list"></div>
+                </div>
+            </div>
+
+            <div class="tip-box" id="resultTip">
+                💡 숫자의 무게중심(Center of Mass)과 크기가 자동 보정되어 최적의 정확도로 분석되었습니다.
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                💡 <strong>숫자 모드</strong>: MNIST 규격 정규화 CNN 분류 | <strong>한글 모드</strong>: AI 한국어 OCR 단어/문장 인식
+            </p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+</body>
+</html>

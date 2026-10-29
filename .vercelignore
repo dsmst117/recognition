@@ -1,0 +1,11 @@
+# Python 백엔드 및 로컬 실행 파일 제외 (정적 웹 호스팅 최적화)
+__pycache__/
+*.pyc
+app.py
+train_model.py
+korean_recognizer.py
+requirements.txt
+*.bat
+templates/
+api/
+CLAUDE.md
